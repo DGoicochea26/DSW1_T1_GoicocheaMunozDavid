@@ -1,0 +1,27 @@
+@model Paginador
+
+@if (Model.TotalPaginas > 0)
+{
+    int inicio = Math.Max(1, Model.PaginaActual - 2);
+    int fin = Math.Min(Model.TotalPaginas, Model.PaginaActual + 2);
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mt-3">
+        <span class="text-muted">Página @Model.PaginaActual de @Model.TotalPaginas. Total: @Model.TotalRegistros libro(s).</span>
+        <nav aria-label="Paginación">
+            <ul class="pagination mb-0">
+                <li class="page-item @(Model.PaginaActual <= 1 ? "disabled" : "")">
+                    <a class="page-link" asp-controller="Libro" asp-action="@Model.Accion" asp-route-pagina="@Math.Max(1, Model.PaginaActual - 1)" asp-route-autor="@Model.Autor">Anterior</a>
+                </li>
+                @for (int i = inicio; i <= fin; i++)
+                {
+                    <li class="page-item @(i == Model.PaginaActual ? "active" : "")">
+                        <a class="page-link" asp-controller="Libro" asp-action="@Model.Accion" asp-route-pagina="@i" asp-route-autor="@Model.Autor">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.PaginaActual >= Model.TotalPaginas ? "disabled" : "")">
+                    <a class="page-link" asp-controller="Libro" asp-action="@Model.Accion" asp-route-pagina="@Math.Min(Model.TotalPaginas, Model.PaginaActual + 1)" asp-route-autor="@Model.Autor">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+}

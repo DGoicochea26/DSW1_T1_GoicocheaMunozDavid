@@ -1,0 +1,18 @@
+@model Libro
+@{
+    ViewData["Title"] = "Registrar libro";
+}
+
+<h1 class="h3 mb-3">Registrar libro</h1>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Crear" method="post">
+            <partial name="_CamposLibro" model="Model" />
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a class="btn btn-outline-secondary" asp-action="Index">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
